@@ -116,8 +116,8 @@ Requisitos não obrigatórios mas que serão um diferencial:
 ## Entrega
 
 A entrega do projeto deve ser feita até o dia 07/08, e a submissão deve ser feita em um repositório no seu próprio Github. 
-Assim que o projeto estiver disponível para avaliação em seu github, nos envie a URL do projeto no e-mail desafio@poppinapp.com.br. 
+Assim que o projeto estiver disponível para avaliação em seu github, nos envie a URL do projeto no e-mail desafio@poppinapp.com.br com o assunto [Entrega/Android] - \<Seu nome>. 
 
-Para qualquer dúvida, sinta-se à vontade para entrar em contato conosco.
+Para qualquer dúvida, sinta-se à vontade para entrar em contato conosco no email desafio@poppinapp.com.br.
 
 Boa sorte!
