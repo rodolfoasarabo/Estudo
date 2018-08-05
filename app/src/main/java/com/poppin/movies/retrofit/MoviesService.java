@@ -14,7 +14,7 @@ public interface MoviesService {
                                    @Query("s") String name,
                                    @Query("type") String type);
 
-    @GET()
+    @GET("/")
     Call<MovieDetail> getMovie(@Query("apikey") String apiKey,
                                @Query("i") String imdbId);
 }

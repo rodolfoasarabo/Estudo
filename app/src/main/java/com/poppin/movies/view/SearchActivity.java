@@ -1,8 +1,8 @@
 package com.poppin.movies.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -12,8 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.poppin.movies.R;
-import com.poppin.movies.retrofit.MoviesService;
 import com.poppin.movies.adapter.MoviesAdapter;
+import com.poppin.movies.base.BaseActivity;
 import com.poppin.movies.models.Movies;
 import com.poppin.movies.models.RetornoBusca;
 import com.poppin.movies.utils.Constants;
@@ -23,19 +23,13 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class SearchActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, MoviesAdapter.OnItemClickListener {
+public class SearchActivity extends BaseActivity implements SearchView.OnQueryTextListener, MoviesAdapter.OnItemClickListener {
 
-    private Retrofit retrofit;
-    private MoviesService service;
-
-    private TextView txt;
     private TextView txtEmptyView;
 
     private ConstraintLayout emptyView;
-    private ProgressBar progressBar;
+    private ConstraintLayout loaderFull;
 
     private RetornoBusca retornoBusca;
     private List<Movies> moviesList;
@@ -43,27 +37,24 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        refLayout = R.layout.activity_search;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        configRetrofit();
+        hideKeyboard();
         SearchView sv = findViewById(R.id.svMovies);
         rvMovies = findViewById(R.id.rvMovies);
         emptyView = findViewById(R.id.emptyView);
-        progressBar = findViewById(R.id.progressBar);
+        loaderFull = findViewById(R.id.loaderFull);
         txtEmptyView = findViewById(R.id.txtEmptyView);
         sv.setQueryHint("Digite sua busca");
         emptyView(true, R.string.empty_nao_buscou);
-        progress(false);
+        showLoader(loaderFull, false);
         sv.setOnQueryTextListener(this);
     }
 
-    private void configRetrofit(){
-        retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.URL_BASE)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        service = retrofit.create(MoviesService.class);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideKeyboard();
     }
 
     private void buscar(String name){
@@ -71,9 +62,9 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         chamada.enqueue(new Callback<RetornoBusca>() {
             @Override
             public void onResponse(Call<RetornoBusca> call, Response<RetornoBusca> response) {
-                progress(false);
+                showLoader(loaderFull, false);
+
                 if (response.body() != null) {
-                    Log.e("Teste", response.body().toString());
                     retornoBusca = response.body();
                     if(retornoBusca.Search != null) {
                         emptyView(false, 0);
@@ -87,7 +78,8 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
 
             @Override
             public void onFailure(Call<RetornoBusca> call, Throwable t) {
-                progress(false);
+                showLoader(loaderFull, false);
+
                 Log.e("Error", t.getMessage());
             }
         });
@@ -100,19 +92,12 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
             rvMovies.setVisibility(View.GONE);
         } else {
             emptyView.setVisibility(View.GONE);
-            rvMovies.setVisibility(View.VISIBLE);
         }
-    }
-
-    private void progress(boolean b){
-        if(b)
-            progressBar.setVisibility(View.VISIBLE);
-        else
-            progressBar.setVisibility(View.INVISIBLE);
     }
 
     private void setupRecycler(List<Movies> moviesList) {
         rvMovies.setHasFixedSize(false);
+        rvMovies.setVisibility(View.VISIBLE);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         rvMovies.setLayoutManager(layoutManager);
         MoviesAdapter adapter = new MoviesAdapter(moviesList, this);
@@ -122,9 +107,10 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
 
     @Override
     public boolean onQueryTextSubmit(String text) {
-        Log.e("Texto", text);
-        progress(true);
+        showLoader(loaderFull, true);
+        rvMovies.setVisibility(View.GONE);
         emptyView(false, 0);
+        hideKeyboard();
         buscar(text);
         return true;
     }
@@ -134,13 +120,16 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         if (s.equals("")){
             emptyView(true, R.string.empty_nao_buscou);
         }
-        return false;
+        return true;
     }
 
 
 
     @Override
     public void onClick(View view, int position, String imdbID) {
+        Intent i =new Intent(this, DetailsActivity.class);
+        i.putExtra(Constants.IMDB_ID, imdbID);
+        startActivity(i);
 
     }
 }

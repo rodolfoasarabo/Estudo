@@ -77,7 +77,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
 
         @Override
         public void onClick(View view) {
-
+            if (clickListener != null){
+                clickListener.onClick(view, getAdapterPosition(), movies.get(getAdapterPosition()).imdbID);
+            }
         }
     }
 
