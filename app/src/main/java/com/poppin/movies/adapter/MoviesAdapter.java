@@ -22,11 +22,12 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
     private List<Movies> movies;
     private Context ctx;
     private MoviesAdapter.OnItemClickListener clickListener;
-    public void setClickListener(MoviesAdapter.OnItemClickListener itemClickListener){
+
+    public void setClickListener(MoviesAdapter.OnItemClickListener itemClickListener) {
         this.clickListener = itemClickListener;
     }
 
-    public MoviesAdapter(List<Movies> movies, Context ctx){
+    public MoviesAdapter(List<Movies> movies, Context ctx) {
         this.movies = movies;
         this.ctx = ctx;
     }
@@ -42,7 +43,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         RequestOptions options = new RequestOptions();
         Movies movie = movies.get(position);
-        if (movie.Poster.equals("N/A")){
+        if (movie.Poster.equals("N/A")) {
             options.fitCenter();
             Glide.with(ctx).load(R.drawable.ic_movie).apply(options).into(holder.moviePoster);
         } else {
@@ -77,13 +78,13 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
 
         @Override
         public void onClick(View view) {
-            if (clickListener != null){
+            if (clickListener != null) {
                 clickListener.onClick(view, getAdapterPosition(), movies.get(getAdapterPosition()).imdbID);
             }
         }
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onClick(View view, int position, String imdbID);
     }
 

@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.poppin.movies.R;
@@ -40,15 +39,9 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
         refLayout = R.layout.activity_search;
         super.onCreate(savedInstanceState);
         hideKeyboard();
-        SearchView sv = findViewById(R.id.svMovies);
-        rvMovies = findViewById(R.id.rvMovies);
-        emptyView = findViewById(R.id.emptyView);
-        loaderFull = findViewById(R.id.loaderFull);
-        txtEmptyView = findViewById(R.id.txtEmptyView);
-        sv.setQueryHint("Digite sua busca");
+        configViews();
         emptyView(true, R.string.empty_nao_buscou);
         showLoader(loaderFull, false);
-        sv.setOnQueryTextListener(this);
     }
 
     @Override
@@ -57,7 +50,19 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
         hideKeyboard();
     }
 
-    private void buscar(String name){
+    private void configViews() {
+        SearchView sv = findViewById(R.id.svMovies);
+
+        sv.setQueryHint("Digite sua busca");
+        rvMovies = findViewById(R.id.rvMovies);
+        emptyView = findViewById(R.id.emptyView);
+        loaderFull = findViewById(R.id.loaderFull);
+        txtEmptyView = findViewById(R.id.txtEmptyView);
+        sv.setOnQueryTextListener(this);
+
+    }
+
+    private void buscar(String name) {
         Call<RetornoBusca> chamada = service.searchMovie(Constants.API_KEY, name, "movie");
         chamada.enqueue(new Callback<RetornoBusca>() {
             @Override
@@ -66,7 +71,7 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
 
                 if (response.body() != null) {
                     retornoBusca = response.body();
-                    if(retornoBusca.Search != null) {
+                    if (retornoBusca.Search != null) {
                         emptyView(false, 0);
                         moviesList = retornoBusca.Search;
                         setupRecycler(moviesList);
@@ -85,8 +90,8 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
         });
     }
 
-    private void emptyView(boolean b, int valor){
-        if (b){
+    private void emptyView(boolean b, int valor) {
+        if (b) {
             txtEmptyView.setText(valor);
             emptyView.setVisibility(View.VISIBLE);
             rvMovies.setVisibility(View.GONE);
@@ -117,17 +122,16 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
 
     @Override
     public boolean onQueryTextChange(String s) {
-        if (s.equals("")){
+        if (s.equals("")) {
             emptyView(true, R.string.empty_nao_buscou);
         }
         return true;
     }
 
 
-
     @Override
     public void onClick(View view, int position, String imdbID) {
-        Intent i =new Intent(this, DetailsActivity.class);
+        Intent i = new Intent(this, DetailsActivity.class);
         i.putExtra(Constants.IMDB_ID, imdbID);
         startActivity(i);
 

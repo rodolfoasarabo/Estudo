@@ -7,4 +7,6 @@ public class Constants {
 
     public static final String IMDB_ID = "imdb_id";
 
+    public static final String ACTION_CHANGE_NETWORK = "DEVICE_WITH_NETWORK";
+
 }

@@ -103,7 +103,7 @@ public class DetailsActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
@@ -148,7 +148,7 @@ public class DetailsActivity extends BaseActivity {
         Glide.with(ctx).load(R.mipmap.metacritic).apply(options).into(ivMetacritic);
     }
 
-    private void configToolbar(){
+    private void configToolbar() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
     }
@@ -156,7 +156,7 @@ public class DetailsActivity extends BaseActivity {
     private void preencheTela() {
         RequestOptions options = new RequestOptions();
         cardImage.setVisibility(View.VISIBLE);
-        if (details.Poster.equals("N/A")){
+        if (details.Poster.equals("N/A")) {
             options.fitCenter();
             Glide.with(ctx).load(R.drawable.ic_movie).apply(options).into(ivPoster);
         } else {
