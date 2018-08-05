@@ -10,12 +10,15 @@
         android:id="@+id/movieCard"
         android:layout_width="160dp"
         android:layout_height="240dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/txtTitle">
 
 
         <android.support.constraint.ConstraintLayout
@@ -27,12 +30,12 @@
                 android:id="@+id/moviePoster"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:background="@mipmap/avengers"
-                android:src="@drawable/image_gradient"
+                android:foreground="@drawable/image_gradient"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_movie" />
 
             <TextView
                 android:id="@+id/txtMovieYear"
@@ -42,6 +45,7 @@
                 android:layout_marginStart="8dp"
                 android:text="2012"
                 android:textColor="@android:color/white"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -58,10 +62,9 @@
         android:layout_marginTop="8dp"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/movieCard"
         app:layout_constraintStart_toStartOf="@+id/movieCard"
-        app:layout_constraintTop_toBottomOf="@+id/movieCard"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Avengers: Age of Ultron" />
 
 </android.support.constraint.ConstraintLayout>

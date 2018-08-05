@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Movies</string>
+    <string name="empty_nao_encontrado">Nenhum filme encontrado.</string>
+    <string name="empty_nao_buscou">Digite sua busca no campo acima.</string>
 </resources>

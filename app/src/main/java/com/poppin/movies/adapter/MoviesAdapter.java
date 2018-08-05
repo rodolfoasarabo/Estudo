@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.poppin.movies.R;
 import com.poppin.movies.models.Movies;
 
@@ -39,9 +40,15 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+        RequestOptions options = new RequestOptions();
         Movies movie = movies.get(position);
-        Glide.with(ctx).load(movie.Poster).into(holder.moviePoster);
+        if (movie.Poster.equals("N/A")){
+            options.fitCenter();
+            Glide.with(ctx).load(R.drawable.ic_movie).apply(options).into(holder.moviePoster);
+        } else {
+            options.centerCrop();
+            Glide.with(ctx).load(movie.Poster).apply(options).into(holder.moviePoster);
+        }
         holder.txtMovieYear.setText(movie.Year);
         holder.txtTitle.setText(movie.Title);
 

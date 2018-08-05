@@ -1,4 +1,4 @@
-package com.poppin.movies.Retrofit;
+package com.poppin.movies.retrofit;
 
 import com.poppin.movies.models.MovieDetail;
 import com.poppin.movies.models.RetornoBusca;
