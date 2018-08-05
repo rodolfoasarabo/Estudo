@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         android:windowSoftInputMode="stateAlwaysHidden">
-        <activity android:name=".view.SearchActivity">
+        <activity android:name=".view.SearchActivity"
+            android:theme="@style/AppThemeNoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
