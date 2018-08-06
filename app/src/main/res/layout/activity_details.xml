@@ -15,7 +15,7 @@
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#11151e">
+            android:background="@color/backgroundScreen">
 
 
             <android.support.v7.widget.CardView
@@ -269,6 +269,6 @@
 
     </ScrollView>
 
-    <include layout="@layout/loader" />
+    <include layout="@layout/loader"/>
 
 </android.support.design.widget.CoordinatorLayout>

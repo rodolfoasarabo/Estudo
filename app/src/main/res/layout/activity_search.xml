@@ -5,7 +5,7 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#11151e"
+    android:background="@color/backgroundScreen"
     android:focusable="true"
     tools:context=".view.SearchActivity">
 
