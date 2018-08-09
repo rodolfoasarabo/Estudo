@@ -1,4 +1,4 @@
-package com.poppin.movies;
+package com.rodolfo.movies;
 
 import org.junit.Test;
 

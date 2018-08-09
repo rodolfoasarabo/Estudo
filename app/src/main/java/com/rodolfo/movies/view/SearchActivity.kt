@@ -9,28 +9,26 @@ import android.support.v7.widget.SearchView
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-
 import com.rodolfo.movies.R
 import com.rodolfo.movies.adapter.MoviesAdapter
 import com.rodolfo.movies.base.BaseActivity
 import com.rodolfo.movies.models.Movies
 import com.rodolfo.movies.models.RetornoBusca
 import com.rodolfo.movies.utils.Constants
-
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener, MoviesAdapter.OnItemClickListener {
 
-    private var txtEmptyView: TextView? = null
+    lateinit var txtEmptyView: TextView
 
-    private var emptyView: ConstraintLayout? = null
-    private var loaderFull: ConstraintLayout? = null
+    lateinit var emptyView: ConstraintLayout
+    lateinit var loaderFull: ConstraintLayout
 
-    private var retornoBusca: RetornoBusca? = null
-    private var moviesList: List<Movies>? = null
-    private var rvMovies: RecyclerView? = null
+    lateinit var retornoBusca: RetornoBusca
+    lateinit var moviesList: List<Movies>
+    lateinit var rvMovies: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         refLayout = R.layout.activity_search
@@ -65,10 +63,10 @@ class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener, MoviesAda
                 showLoader(loaderFull, false)
 
                 if (response.body() != null) {
-                    retornoBusca = response.body()
-                    if (retornoBusca!!.Search != null) {
+                    retornoBusca = response.body()!!
+                    if (retornoBusca.Search != null) {
                         emptyView(false, 0)
-                        moviesList = retornoBusca!!.Search
+                        moviesList = retornoBusca.Search!!
                         setupRecycler(moviesList)
                     } else {
                         emptyView(true, R.string.empty_nao_encontrado)
@@ -86,27 +84,27 @@ class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener, MoviesAda
 
     private fun emptyView(b: Boolean, valor: Int) {
         if (b) {
-            txtEmptyView!!.setText(valor)
-            emptyView!!.visibility = View.VISIBLE
-            rvMovies!!.visibility = View.GONE
+            txtEmptyView.setText(valor)
+            emptyView.visibility = View.VISIBLE
+            rvMovies.visibility = View.GONE
         } else {
-            emptyView!!.visibility = View.GONE
+            emptyView.visibility = View.GONE
         }
     }
 
-    private fun setupRecycler(moviesList: List<Movies>?) {
-        rvMovies!!.setHasFixedSize(false)
-        rvMovies!!.visibility = View.VISIBLE
+    private fun setupRecycler(moviesList: List<Movies>) {
+        rvMovies.setHasFixedSize(false)
+        rvMovies.visibility = View.VISIBLE
         val layoutManager = GridLayoutManager(this, 2)
-        rvMovies!!.layoutManager = layoutManager
-        val adapter = MoviesAdapter(moviesList!!, this)
-        rvMovies!!.adapter = adapter
+        rvMovies.layoutManager = layoutManager
+        val adapter = MoviesAdapter(moviesList, this)
+        rvMovies.adapter = adapter
         adapter.setClickListener(this)
     }
 
     override fun onQueryTextSubmit(text: String): Boolean {
         showLoader(loaderFull, true)
-        rvMovies!!.visibility = View.GONE
+        rvMovies.visibility = View.GONE
         emptyView(false, 0)
         hideKeyboard()
         buscar(text)

@@ -1,4 +1,4 @@
-package com.poppin.movies;
+package com.rodolfo.movies;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
