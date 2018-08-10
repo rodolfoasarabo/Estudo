@@ -67,7 +67,7 @@ class SearchActivity : BaseActivity(), SearchView.OnQueryTextListener, MoviesAda
                     if (retornoBusca.Search != null) {
                         emptyView(false, 0)
                         moviesList = retornoBusca.Search!!
-                        setupRecycler(moviesList)
+                        setupRecycler(moviesList.sortedWith(compareByDescending {it.Year}))
                     } else {
                         emptyView(true, R.string.empty_nao_encontrado)
                     }

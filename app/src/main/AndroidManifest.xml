@@ -16,7 +16,9 @@
         tools:ignore="GoogleAppIndexingWarning"
         android:windowSoftInputMode="stateAlwaysHidden">
         <activity android:name=".view.SearchActivity"
-            android:theme="@style/AppThemeNoActionBar">
+            android:theme="@style/AppThemeNoActionBar"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -24,7 +26,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.DetailsActivity"/>
+        <activity android:name=".view.DetailsActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
