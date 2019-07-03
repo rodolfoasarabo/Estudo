@@ -1,31 +1,30 @@
 package com.rodolfo.movies.models
 
-class MovieDetail {
+import java.io.Serializable
 
-    var Title: String? = null
-    var Year: String? = null
-    var Rated: String? = null
-    var Released: String? = null
-    var Runtime: String? = null
-    var Genre: String? = null
-    var Director: String? = null
-    var Writer: String? = null
-    var Actors: String? = null
-    var Website: String? = null
-    var imdbRating: String? = null
-    var Type: String? = null
-    var imdbVotes: String? = null
-    var Ratings: Array<Ratings>? = null
-    var Response: String? = null
-    var Poster: String? = null
-    var imdbID: String? = null
-    var Country: String? = null
-    var BoxOffice: String? = null
-    var DVD: String? = null
-    var Plot: String? = null
-    var Metascore: String? = null
-    var Production: String? = null
-    var Language: String? = null
-    var Awards: String? = null
-
-}
+data class MovieDetail(
+        val Title: String?,
+        val Year: String?,
+        val Rated: String?,
+        val Released: String?,
+        val Runtime: String?,
+        val Genre: String?,
+        val Director: String?,
+        val Writer: String?,
+        val Actors: String?,
+        val Website: String?,
+        val imdbRating: String?,
+        val Type: String?,
+        val imdbVotes: String?,
+        val Ratings: Array<Ratings>?,
+        val Response: String?,
+        val Poster: String?,
+        val imdbID: String?,
+        val Country: String?,
+        val BoxOffice: String?,
+        val DVD: String?,
+        val Plot: String?,
+        val Metascore: String?,
+        val Production: String?,
+        val Language: String?,
+        val Awards: String?) : Serializable

@@ -1,11 +1,7 @@
 package com.rodolfo.movies.models
 
-class Movies {
+import java.io.Serializable
 
-    var Title: String? = null
-    var Year: String? = null
-    var imdbID: String? = null
-    var Type: String? = null
-    var Poster: String? = null
+data class Movies(val Title: String?, val Year: String?, val imdbID: String?,
+                  val Type: String?, val Poster: String?) : Serializable
 
-}

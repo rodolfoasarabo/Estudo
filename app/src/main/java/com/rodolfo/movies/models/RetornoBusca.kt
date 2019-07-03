@@ -1,8 +1,5 @@
 package com.rodolfo.movies.models
 
-class RetornoBusca {
+import java.io.Serializable
 
-    var Search: List<Movies>? = null
-    var totalResults: String? = null
-    var Response: String? = null
-}
+class RetornoBusca(val Search: List<Movies>?, val totalResults: String?, val Response: String?) : Serializable

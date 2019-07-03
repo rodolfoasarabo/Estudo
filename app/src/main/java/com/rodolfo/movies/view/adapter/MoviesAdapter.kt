@@ -1,9 +1,7 @@
-package com.rodolfo.movies.adapter
+package com.rodolfo.movies.view.adapter
 
 import android.content.Context
-import android.support.v7.widget.CardView
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +12,11 @@ import com.bumptech.glide.request.RequestOptions
 import com.rodolfo.movies.R
 import com.rodolfo.movies.models.Movies
 
-class MoviesAdapter(val movies: List<Movies>, val ctx: Context) : RecyclerView.Adapter<MoviesAdapter.MoviesAdapterViewHolder>() {
+class MoviesAdapter(val movies: List<Movies>, private val ctx: Context) : androidx.recyclerview.widget.RecyclerView.Adapter<MoviesAdapter.MoviesAdapterViewHolder>() {
 
     private lateinit var clickListener: MoviesAdapter.OnItemClickListener
 
-    fun setClickListener(itemClickListener: MoviesAdapter.OnItemClickListener){
+    fun setClickListener(itemClickListener: MoviesAdapter.OnItemClickListener) {
         this.clickListener = itemClickListener
     }
 
@@ -28,13 +26,13 @@ class MoviesAdapter(val movies: List<Movies>, val ctx: Context) : RecyclerView.A
     }
 
     override fun getItemCount(): Int {
-        return movies?.size ?: 0
+        return movies.size
     }
 
     override fun onBindViewHolder(holder: MoviesAdapterViewHolder, position: Int) {
-        val options: RequestOptions = RequestOptions()
-        val movie: Movies = movies.get(position)
-        if (movie.Poster.equals("N/A")){
+        val options = RequestOptions()
+        val movie: Movies = movies[position]
+        if (movie.Poster.equals("N/A")) {
             options.fitCenter()
             Glide.with(ctx).load(R.drawable.ic_movie).apply(options).into(holder.moviePoster)
         } else {
@@ -45,21 +43,19 @@ class MoviesAdapter(val movies: List<Movies>, val ctx: Context) : RecyclerView.A
         holder.txtTitle.text = movie.Title
     }
 
-    inner class MoviesAdapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class MoviesAdapterViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         val txtTitle: TextView = itemView.findViewById(R.id.txtTitle)
         val txtMovieYear: TextView = itemView.findViewById(R.id.txtMovieYear)
         val moviePoster: ImageView = itemView.findViewById(R.id.moviePoster)
-        val movieCard: CardView = itemView.findViewById(R.id.movieCard)
+        val movieCard: androidx.cardview.widget.CardView = itemView.findViewById(R.id.movieCard)
 
         init {
             itemView.setOnClickListener(this)
         }
 
         override fun onClick(view: View) {
-            if (clickListener != null){
-                clickListener.onClick(view, adapterPosition, movies.get(adapterPosition).imdbID)
-            }
+            clickListener.onClick(view, adapterPosition, movies[adapterPosition].imdbID)
         }
 
     }

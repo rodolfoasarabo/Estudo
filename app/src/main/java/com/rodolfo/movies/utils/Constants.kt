@@ -3,10 +3,9 @@ package com.rodolfo.movies.utils
 class Constants {
 
     companion object {
-        val URL_BASE = "http://www.omdbapi.com"
-        val API_KEY = "7c48acd1"
-        val IMDB_ID = "imdb_id"
-        val ACTION_CHANGE_NETWORK = "DEVICE_WITH_NETWORK"
+        const val URL_BASE = "https://www.omdbapi.com"
+        const val API_KEY = "c25888fb"
+        const val IMDB_ID = "imdb_id"
     }
 
 }

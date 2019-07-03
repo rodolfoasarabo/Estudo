@@ -1,274 +1,280 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
-        <android.support.constraint.ConstraintLayout
-
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/backgroundScreen">
+            android:fillViewport="true">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cardImage"
-                android:layout_width="160dp"
-                android:layout_height="240dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:visibility="invisible"
-                app:cardCornerRadius="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <android.support.constraint.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/ivPoster"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@drawable/ic_movie" />
-
-                </android.support.constraint.ConstraintLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <HorizontalScrollView
-                android:id="@+id/hsvChips"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardImage">
+                android:background="@color/backgroundScreen">
 
-                <android.support.design.chip.ChipGroup
-                    android:id="@+id/chipGroupGenre"
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardImage"
+                    android:layout_width="160dp"
+                    android:layout_height="240dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:visibility="invisible"
+                    app:cardCornerRadius="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/ivPoster"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:src="@drawable/ic_movie" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <HorizontalScrollView
+                    android:id="@+id/hsvChips"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp" />
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardImage">
 
-            </HorizontalScrollView>
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroupGenre"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp" />
 
-            <TextView
-                android:id="@+id/tvMovieRelease"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="8dp"
-                android:textColor="@android:color/white"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cardImage"
-                app:layout_constraintTop_toTopOf="@+id/cardImage"
-                tools:text="Released: 04 May 2012" />
+                </HorizontalScrollView>
 
-            <TextView
-                android:id="@+id/tvRated"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="8dp"
-                android:textColor="@android:color/white"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/tvMovieRelease"
-                app:layout_constraintTop_toBottomOf="@+id/tvMovieRelease"
-                tools:text="Rated: PG-13" />
+                <TextView
+                    android:id="@+id/tvMovieRelease"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/cardImage"
+                    app:layout_constraintTop_toTopOf="@+id/cardImage"
+                    tools:text="Released: 04 May 2012" />
 
-            <TextView
-                android:id="@+id/tvDirector"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="8dp"
-                android:textColor="@android:color/white"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/tvRated"
-                app:layout_constraintTop_toBottomOf="@+id/tvRated"
-                tools:text="Director: Joss Whedon" />
+                <TextView
+                    android:id="@+id/tvRated"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvMovieRelease"
+                    app:layout_constraintTop_toBottomOf="@+id/tvMovieRelease"
+                    tools:text="Rated: PG-13" />
 
-            <TextView
-                android:id="@+id/tvWriter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDescriptionValue"
-                tools:text="Writer:" />
+                <TextView
+                    android:id="@+id/tvDirector"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tvRated"
+                    app:layout_constraintTop_toBottomOf="@+id/tvRated"
+                    tools:text="Director: Joss Whedon" />
 
-            <TextView
-                android:id="@+id/tvWriterValue"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:textColor="@android:color/white"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvWriter"
-                tools:text="Joss Whedon (screenplay), Zak Penn (story), Joss Whedon (story)" />
-
-            <TextView
-                android:id="@+id/tvRatings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@+id/tvDirector"
-                app:layout_constraintTop_toBottomOf="@+id/tvDirector"
-                tools:text="Ratings:" />
-
-            <LinearLayout
-                android:id="@+id/llRatings"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="8dp"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/tvRatings"
-                app:layout_constraintTop_toBottomOf="@id/tvRatings">
-
-                <LinearLayout
-                    android:id="@+id/llImdb"
+                <TextView
+                    android:id="@+id/tvWriter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8sp"
-                    android:orientation="vertical"
-                    android:visibility="gone">
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDescriptionValue"
+                    tools:text="Writer:" />
 
-                    <ImageView
-                        android:id="@+id/ivImdb"
-                        android:layout_width="40dp"
-                        android:layout_height="30dp"
-                        tools:src="@mipmap/imdb" />
+                <TextView
+                    android:id="@+id/tvWriterValue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvWriter"
+                    tools:text="Joss Whedon (screenplay), Zak Penn (story), Joss Whedon (story)" />
 
-                    <TextView
-                        android:id="@+id/tvValueImdb"
+                <TextView
+                    android:id="@+id/tvRatings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="@+id/tvDirector"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDirector"
+                    tools:text="Ratings:" />
+
+                <LinearLayout
+                    android:id="@+id/llRatings"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/tvRatings"
+                    app:layout_constraintTop_toBottomOf="@id/tvRatings">
+
+                    <LinearLayout
+                        android:id="@+id/llImdb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="2dp"
-                        android:textAlignment="center"
-                        android:textColor="@android:color/white"
-                        android:textSize="10sp"
-                        tools:text="8.1/10" />
+                        android:layout_marginEnd="8sp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/ivImdb"
+                            android:layout_width="40dp"
+                            android:layout_height="30dp"
+                            tools:src="@mipmap/imdb" />
+
+                        <TextView
+                            android:id="@+id/tvValueImdb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="2dp"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/white"
+                            android:textSize="10sp"
+                            tools:text="8.1/10" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llRotten"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8sp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/ivRotten"
+                            android:layout_width="40dp"
+                            android:layout_height="30dp"
+                            android:scaleType="fitCenter"
+                            tools:src="@mipmap/rotten" />
+
+                        <TextView
+                            android:id="@+id/tvValueRotten"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="2dp"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/white"
+                            android:textSize="10sp"
+                            tools:text="92%" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llMetacritic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8sp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/ivMetacritic"
+                            android:layout_width="40dp"
+                            android:layout_height="30dp"
+                            android:scaleType="centerInside"
+                            tools:src="@mipmap/metacritic" />
+
+                        <TextView
+                            android:id="@+id/tvValueMetacritic"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="2dp"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/white"
+                            android:textSize="10sp"
+                            tools:text="69/100" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/llRotten"
+                <TextView
+                    android:id="@+id/tvDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8sp"
-                    android:orientation="vertical"
-                    android:visibility="gone">
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/hsvChips"
+                    tools:text="Description:" />
 
-                    <ImageView
-                        android:id="@+id/ivRotten"
-                        android:layout_width="40dp"
-                        android:layout_height="30dp"
-                        android:scaleType="fitCenter"
-                        tools:src="@mipmap/rotten" />
-
-                    <TextView
-                        android:id="@+id/tvValueRotten"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="2dp"
-                        android:textAlignment="center"
-                        android:textColor="@android:color/white"
-                        android:textSize="10sp"
-                        tools:text="92%" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/llMetacritic"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tvDescriptionValue"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8sp"
-                    android:orientation="vertical"
-                    android:visibility="gone">
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+                    tools:text="Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity." />
 
-                    <ImageView
-                        android:id="@+id/ivMetacritic"
-                        android:layout_width="40dp"
-                        android:layout_height="30dp"
-                        android:scaleType="centerInside"
-                        tools:src="@mipmap/metacritic" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <TextView
-                        android:id="@+id/tvValueMetacritic"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="2dp"
-                        android:textAlignment="center"
-                        android:textColor="@android:color/white"
-                        android:textSize="10sp"
-                        tools:text="69/100" />
+        </ScrollView>
 
-                </LinearLayout>
+        <include android:id="@+id/loader"
+            layout="@layout/loader" />
 
-            </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-            <TextView
-                android:id="@+id/tvDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/hsvChips"
-                tools:text="Description:" />
-
-            <TextView
-                android:id="@+id/tvDescriptionValue"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:textColor="@android:color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDescription"
-                tools:text="Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity." />
-
-        </android.support.constraint.ConstraintLayout>
-
-    </ScrollView>
-
-    <include layout="@layout/loader"/>
-
-</android.support.design.widget.CoordinatorLayout>
+</layout>

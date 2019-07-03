@@ -1,8 +1,6 @@
 package com.rodolfo.movies.models
 
-class Ratings {
+import java.io.Serializable
 
-    var Source: String? = null
-    var Value: String? = null
-
-}
+data class Ratings(val Source: String?,
+                   val Value: String?) : Serializable

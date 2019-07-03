@@ -1,94 +1,62 @@
 package com.rodolfo.movies.view
 
-import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
-import android.support.design.chip.Chip
-import android.support.design.chip.ChipGroup
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.CardView
+import android.os.PersistableBundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.rodolfo.movies.R
 import com.rodolfo.movies.base.BaseActivity
+import com.rodolfo.movies.databinding.ActivityDetailsBinding
 import com.rodolfo.movies.models.MovieDetail
 import com.rodolfo.movies.utils.Constants
+import com.rodolfo.movies.view.viewmodel.DetailsViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.standalone.KoinComponent
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailsActivity : BaseActivity(){
-
-    //ImageViews
-    lateinit var ivPoster: ImageView
-    lateinit var ivImdb: ImageView
-    lateinit var ivRotten: ImageView
-    lateinit var ivMetacritic: ImageView
-
-    //TextViews
-    lateinit var tvMovieRelease: TextView
-    lateinit var tvRated: TextView
-    lateinit var tvDirector: TextView
-    lateinit var tvWriter: TextView
-    lateinit var tvWriterValue: TextView
-    lateinit var tvRatings: TextView
-    lateinit var tvValueImdb: TextView
-    lateinit var tvValueRotten: TextView
-    lateinit var tvValueMetacritic: TextView
-    lateinit var tvDescription: TextView
-    lateinit var tvDescriptionValue: TextView
-
-    //ChipGroup
-    lateinit var chipGroupGenre: ChipGroup
-
-    //LinearLayout
-    lateinit var llImdb: LinearLayout
-    lateinit var llRotten: LinearLayout
-    lateinit var llMetacritic: LinearLayout
-    lateinit var llRatings: LinearLayout
+class DetailsActivity : AppCompatActivity(), KoinComponent {
 
     //Other
-    lateinit var imdbId: String
+    private lateinit var imdbId: String
     lateinit var details: MovieDetail
-    lateinit var loaderFull: ConstraintLayout
-    lateinit var cardImage: CardView
-    
+    private lateinit var binding: ActivityDetailsBinding
+
+    private val viewModel: DetailsViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        refLayout = R.layout.activity_details
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_details)
         super.onCreate(savedInstanceState)
         configViews()
         configToolbar()
         imdbId = intent.getSerializableExtra(Constants.IMDB_ID) as String
-        showLoader(loaderFull, true)
-        val chamada: Call<MovieDetail> = service.getMovie(Constants.API_KEY, imdbId)
+        binding.loader.loaderFull.showLoader(true)
+        observeChanges()
+        viewModel.getMovie(imdbId)
+    }
 
-        chamada.enqueue(object : Callback<MovieDetail> {
-            override fun onResponse(call: Call<MovieDetail>, response: Response<MovieDetail>) {
-                if (response.code() < 200 || response.code() >= 300) {
-                    Log.e("Falha de conexão", response.code().toString())
-                    showLoader(loaderFull, false)
-                } else {
-                    if (response.body() != null) {
-                        showLoader(loaderFull, false)
-                        details = response.body()!!
-                        supportActionBar!!.setTitle(details.Title)
-                        preencheTela()
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<MovieDetail>, t: Throwable) {
-                Log.e("Falha de conexão", t.message)
-            }
+    private fun observeChanges() {
+        viewModel.movieDetail().observe(this, Observer {
+            binding.loader.loaderFull.showLoader(false)
+            details = it
+            supportActionBar?.title = it.Title
+            preencheTela()
         })
-
     }
 
     override fun onBackPressed() {
@@ -103,40 +71,11 @@ class DetailsActivity : BaseActivity(){
     }
 
     private fun configViews() {
-
-        ivPoster = findViewById(R.id.ivPoster)
-        ivImdb = findViewById(R.id.ivImdb)
-        ivRotten = findViewById(R.id.ivRotten)
-        ivMetacritic = findViewById(R.id.ivMetacritic)
-
-        tvMovieRelease = findViewById(R.id.tvMovieRelease)
-        tvRated = findViewById(R.id.tvRated)
-        tvDirector = findViewById(R.id.tvDirector)
-        tvWriter = findViewById(R.id.tvWriter)
-        tvWriterValue = findViewById(R.id.tvWriterValue)
-        tvRatings = findViewById(R.id.tvRatings)
-        tvValueImdb = findViewById(R.id.tvValueImdb)
-        tvValueRotten = findViewById(R.id.tvValueRotten)
-        tvValueMetacritic = findViewById(R.id.tvValueMetacritic)
-        tvDescription = findViewById(R.id.tvDescription)
-        tvDescriptionValue = findViewById(R.id.tvDescriptionValue)
-
-        chipGroupGenre = findViewById(R.id.chipGroupGenre)
-
-        llImdb = findViewById(R.id.llImdb)
-        llRotten = findViewById(R.id.llRotten)
-        llMetacritic = findViewById(R.id.llMetacritic)
-        llRatings = findViewById(R.id.llRatings)
-
-        loaderFull = findViewById(R.id.loaderFull)
-
-        cardImage = findViewById(R.id.cardImage)
-
         val options = RequestOptions()
         options.fitCenter()
-        Glide.with(ctx).load(R.mipmap.imdb).apply(options).into(ivImdb)
-        Glide.with(ctx).load(R.mipmap.rotten).apply(options).into(ivRotten)
-        Glide.with(ctx).load(R.mipmap.metacritic).apply(options).into(ivMetacritic)
+        Glide.with(this).load(R.mipmap.imdb).apply(options).into(binding.ivImdb)
+        Glide.with(this).load(R.mipmap.rotten).apply(options).into(binding.ivRotten)
+        Glide.with(this).load(R.mipmap.metacritic).apply(options).into(binding.ivMetacritic)
     }
 
     private fun configToolbar() {
@@ -144,64 +83,67 @@ class DetailsActivity : BaseActivity(){
         supportActionBar!!.setDisplayShowTitleEnabled(true)
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun preencheTela(){
+    private fun preencheTela() {
         val options = RequestOptions()
-        cardImage.visibility = View.VISIBLE
+        binding.cardImage.visibility = View.VISIBLE
         if (details.Poster == "N/A") {
             options.fitCenter()
-            Glide.with(ctx).load(R.drawable.ic_movie).apply(options).into(ivPoster)
+            Glide.with(this).load(R.drawable.ic_movie).apply(options).into(binding.ivPoster)
         } else {
             options.centerCrop()
-            Glide.with(ctx).load(details.Poster).apply(options).into(ivPoster)
+            Glide.with(this).load(details.Poster).apply(options).into(binding.ivPoster)
         }
 
         if (details.Ratings!!.isNotEmpty()) {
-            llRatings.visibility = View.VISIBLE
-            tvRatings.visibility = View.VISIBLE
+            binding.llRatings.visibility = View.VISIBLE
+            binding.tvRatings.visibility = View.VISIBLE
         }
 
         for (r in details.Ratings!!) {
             when (r.Source) {
                 "Internet Movie Database" -> {
-                    llImdb.visibility = View.VISIBLE
-                    tvValueImdb.text = r.Value
+                    binding.llImdb.visibility = View.VISIBLE
+                    binding.tvValueImdb.text = r.Value
                 }
                 "Rotten Tomatoes" -> {
-                    llRotten.visibility = View.VISIBLE
-                    tvValueRotten.text = r.Value
+                    binding.llRotten.visibility = View.VISIBLE
+                    binding.tvValueRotten.text = r.Value
                 }
                 "Metacritic" -> {
-                    llMetacritic.visibility = View.VISIBLE
-                    tvValueMetacritic.text = r.Value
+                    binding.llMetacritic.visibility = View.VISIBLE
+                    binding.tvValueMetacritic.text = r.Value
                 }
             }
         }
 
         val writers = StringBuilder()
 
-        for (writer: String in details.Writer!!.split("), ")){
+        for (writer: String in details.Writer!!.split("), ")) {
             writers.append("● $writer)\n")
         }
 
-        tvMovieRelease.text = "Released: " + details.Released!!
-        tvRated.text = "Rated: " + details.Rated!!
-        tvDirector.text = "Director: " + details.Director!!
-        tvWriter.text = "Writer"
-        tvWriterValue.text = writers
-        tvRatings.text = "Ratings:"
-        tvDescription.text = "Description:"
-        tvDescriptionValue.text = details.Plot
+        binding.tvMovieRelease.text = ("Released: " + details.Released!!)
+        binding.tvRated.text = ("Rated: " + details.Rated!!)
+        binding.tvDirector.text = ("Director: " + details.Director!!)
+        binding.tvWriter.text = ("Writer")
+        binding.tvWriterValue.text = writers
+        binding.tvRatings.text = ("Ratings:")
+        binding.tvDescription.text = ("Description:")
+        binding.tvDescriptionValue.text = details.Plot
 
         val genres = details.Genre!!.split(", ")
 
         for (genre in genres) {
-            val chip = Chip(chipGroupGenre.context)
+            val chip = Chip(binding.chipGroupGenre.context)
             chip.text = genre
-            chip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(ctx, R.color.colorAccent))
-            chip.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(ctx, R.color.colorPrimaryDark)))
-            chipGroupGenre.addView(chip)
+            chip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorAccent))
+            chip.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorPrimaryDark)))
+            binding.chipGroupGenre.addView(chip)
         }
+    }
+
+    private fun View.showLoader(visible: Boolean) {
+        this.visibility = if (visible) View.VISIBLE else View.GONE
     }
 
 }

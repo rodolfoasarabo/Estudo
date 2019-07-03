@@ -7,14 +7,14 @@ import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.provider.Settings
-import android.support.design.widget.CoordinatorLayout
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.snackbar.Snackbar
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import com.rodolfo.movies.R
-import com.rodolfo.movies.retrofit.MoviesService
+import com.rodolfo.movies.retrofit.Requests
 import com.rodolfo.movies.utils.Constants
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -23,10 +23,10 @@ abstract class BaseActivity : AppCompatActivity() {
 
     var refLayout: Int = 0
     lateinit var retrofit: Retrofit
-    lateinit var service: MoviesService
+    lateinit var service: Requests
     lateinit var ctx: Context
     lateinit var semRede: Snackbar
-    lateinit var v: CoordinatorLayout
+    lateinit var v: androidx.coordinatorlayout.widget.CoordinatorLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +66,7 @@ abstract class BaseActivity : AppCompatActivity() {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
-        service = retrofit.create(MoviesService::class.java)
+        service = retrofit.create(Requests::class.java)
     }
 
     private fun mudancaConexao() {
@@ -77,25 +77,23 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun isConnected(context: Context): Boolean {
+    private fun isConnected(context: Context): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-        if (cm != null) {
-            val ni = cm.activeNetworkInfo
+        cm.let {
+            val ni = it.activeNetworkInfo
             return ni != null && ni.isConnected
         }
-
-        return false
     }
 
     fun hideKeyboard() {
-        if (currentFocus != null) {
+        currentFocus?.let {
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+            inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
             this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
-            val view = currentFocus
-            view!!.clearFocus()
-            val v = findViewById<CoordinatorLayout>(R.id.coordinatorLayout)
+            val view = it
+            view.clearFocus()
+            val v = findViewById<androidx.coordinatorlayout.widget.CoordinatorLayout>(R.id.coordinatorLayout)
             v.requestFocus()
         }
     }
