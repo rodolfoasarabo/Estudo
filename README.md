@@ -14,7 +14,7 @@ dependencies {
 ## Documentation
 
 ## Components
-	* Snackbar:
+* Snackbar:
 		```
 		Snackbar(context).apply {
         	message = message
