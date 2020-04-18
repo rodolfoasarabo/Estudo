@@ -7,7 +7,6 @@ Components for iFood Android
 Gradle:
 ```gradle
 dependencies {
-	implementation 'br.com.ifood.design:design-system:0.1.5'
 }
 ```
 
